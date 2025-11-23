@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public static final String RESET = "\u001B[0m";
 public static final String ROJO = "\u001B[31m";
 public static final String VERDE = "\u001B[32m";
@@ -8,113 +6,77 @@ public static final String AZUL = "\u001B[34m";
 public static final String MORADO = "\u001B[35m";
 public static final String CIAN = "\u001B[36m";
 public static final String BLANCO = "\u001B[37m";
-private static final String FILE = "Usuarios.txt";
-private static List<Usuario> listaUsuarios = new ArrayList<Usuario>();
 
 void main() {
-    int opc = 0;
-    String opcionIngresada;
-    String tipo = "";
-    String nombre;
-    String contrasena;
-    boolean correcto = true;
-    cargarUsuarios();
+    int opcInicio = 0; //opcion para el inicio de sesion o crear cuenta
+    int opcTipo; // opcion para el tipo de cuenta
+    String opcionIngresada; // sirve para obtener la opcion ingresada en un string y asignarlo a una opcion tambien para validar en el try catch
+    String tipo = ""; // Inicializar tipo
+    String nombre;  // Inicializar nombre
+    String contrasena; // Inicializar contraseña
+    boolean correcto; // Inicializar correcto
+    boolean acceso = false; // Inicializar acceso
 
-    do {
-        IO.println("Iniciar sesión o crear cuenta");
-        IO.println("1)Crear cuenta");
-        IO.println("2)Iniciar sesión");
-        opcionIngresada = IO.readln();
-        try {
-            opc = Integer.parseInt(opcionIngresada);
-            if (opc <= 0 || opc > 2) {
+    Usuario.cargarUsuarios(); //llama al metodo cargar usuarios
+
+    do { //Bucle para el modulo de login
+        do { //Bucle para ingresar si se quiere Iniciar sesion o crear una cuenta
+            IO.println(MORADO+"Iniciar sesión o crear cuenta"+RESET);
+            IO.println("1)Crear cuenta");
+            IO.println("2)Iniciar sesión");
+            opcionIngresada = IO.readln();
+            //try catch para validar si la opcion ingresada si sea un numero
+            try {
+                opcInicio = Integer.parseInt(opcionIngresada); //convirtiendo el string(opcionIngresada) a numero y asignandoselo a opcInicio
+                if (opcInicio <= 0 || opcInicio > 2) { //validando si la opcion es valida
+                    correcto = false;
+                    IO.println(ROJO + "Debes de ingresar 1 o 2" + RESET);
+                } else {
+                    correcto = true;
+                }
+            } catch (NumberFormatException e) { //atrapa la excepcion
+                IO.println(ROJO + "Debes de ingresar un numero" + RESET);
                 correcto = false;
-                IO.println(ROJO+"Debes de ingresar 1 o 2"+RESET);
-            } else {
-                correcto = true;
             }
-        } catch (NumberFormatException e) {
-            IO.println(ROJO+"Debes de ingresar un numero"+RESET);
-            correcto = false;
-        }
-    } while (!correcto);
-
-    do {
-        nombre = IO.readln("Nombre: ").trim().toLowerCase();
-        contrasena = IO.readln("Contraseña: ").trim().toLowerCase();
-        IO.println("Tipos de cuentas:");
-        IO.println("1)Usuario");
-        IO.println("2)Administrador");
-        opcionIngresada = IO.readln();
-        try {
-            opc = Integer.parseInt(opcionIngresada);
-            if (opc == 1) {
-                tipo = "Usuario";
-            } else if (opc == 2) {
-                tipo = "Administrador";
-            } else {
-                IO.println(ROJO+"Opcion Invalida"+RESET);
+        } while (!correcto);
+        do { //Bucle para el ingreso de los datos
+            nombre = IO.readln("Nombre: ").trim().toLowerCase();
+            contrasena = IO.readln("Contraseña: ").trim();
+            IO.println(MORADO + "Tipos de cuentas:" + RESET);
+            IO.println("1)Usuario");
+            IO.println("2)Administrador");
+            opcionIngresada = IO.readln();
+            //try catch para validar si la opcion ingresada si sea un numero
+            try {
+                opcTipo = Integer.parseInt(opcionIngresada);
+                if (opcTipo == 1) {
+                    tipo = "Usuario";
+                    correcto = true;
+                } else if (opcTipo == 2) {
+                    tipo = "Administrador";
+                    correcto = true;
+                } else {
+                    IO.println(ROJO + "Opcion Invalida" + RESET);
+                }
+                if (nombre.isEmpty() || contrasena.isEmpty() || tipo.isEmpty()) { //validando si algun valor esta vacio
+                    correcto = false;
+                    IO.println(ROJO + "Ningun campo puede ser nulo" + RESET);
+                    IO.println("");
+                }
+            } catch (NumberFormatException e) { //atrapa la excepcion
+                IO.println(ROJO + "Debes de ingresar un numero" + RESET);
             }
-            if (!(nombre.isEmpty() || contrasena.isEmpty() || tipo.isEmpty())) {
-            } else {
-                correcto = false;
-                IO.println(ROJO+"Ningun campo puede ser nulo"+RESET);
-                IO.println("");
-            }
-        } catch (NumberFormatException e) {
-            IO.println(ROJO+"Debes de ingresar un numero"+RESET);
-        }
-    } while (!correcto);
-
-    if (opc == 1) {
-        crearCuenta(nombre,contrasena,tipo);
-    } else if (opc == 2) {
-        iniciarSesion(nombre,contrasena,tipo);
-    } else if (opc>0 || opc<0) {
-        IO.println(ROJO+"Opcion Invalida"+RESET);
-    }
-
-    for (Usuario usuario: listaUsuarios) {
-        IO.println("Nombre: " + usuario.getNombre()+ " Contrasena: "+usuario.getContrasena() + " Tipo de cuenta: " + usuario.isTipo());
-    }
-
-}
-
-public static void cargarUsuarios() {
-    listaUsuarios.clear();
-    try {
-        BufferedReader br = new BufferedReader(new FileReader(FILE));
-        String linea;
-        while ((linea = br.readLine()) != null) {
-            String[] partes = linea.split(",");
-            if (partes.length == 3) {
-                Usuario u = new Usuario(partes[0], partes[1], partes[2]);
-                listaUsuarios.add(u); // usuario[0] = nombre, usuario[1] = contraseña
+        } while (!correcto);
+        if (opcInicio == 1) { // Si la opcion es 1 crea una cuenta
+            Usuario.crearCuenta(nombre, contrasena, tipo); //Insertar los valores de nombre contraseña, tipo al modulo crear cuenta
+        } else { // Si la opcion es 2 inicia sesion
+            boolean inicioSesion = Usuario.iniciarSesion(nombre, contrasena, tipo); //Insertar los valores de nombre contraseña, tipo al modulo iniciar sesion
+            if (inicioSesion) {
+                System.out.printf("hola %s, has accedido con exito\n",nombre);
+                acceso = true;
             }
         }
-    } catch (IOException e) {
-         IO.println(ROJO+"Archivo no encontrado, Se creara uno"+RESET);
-    }
+    } while (!acceso);
 }
 
-static void crearCuenta(String nombre, String contrasena, String tipo) {
-    try(FileWriter fw = new FileWriter(FILE, true)) {
-        fw.write(nombre + "," + contrasena + ","+ tipo + "\n");
-        IO.println(AZUL+"Cuenta creada correctamente"+RESET);
-        fw.close();
-    } catch (IOException e) {
-        throw new RuntimeException(e);
-    }
-}
 
-static boolean iniciarSesion(String nombre, String contrasena, String tipo) {
-    for (Usuario i: listaUsuarios) {
-        if (i.getNombre().equals(nombre)&&i.getContrasena().equals(contrasena)&&tipo.equals(tipo)){
-            IO.println(AZUL+"Iniciando sesion"+RESET);
-            return true;
-        } else {
-            IO.println(ROJO+"Usuario no encontrado"+RESET);
-        }
-    }
-    return false;
-}
