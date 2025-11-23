@@ -1,3 +1,5 @@
-zadkiel,Zadkiel#2009,Usuario
+zadkiel,Zadkiel#2009,Administrador
 cesar,2009,Usuario
 leonardo,AdminLeonard,Administrador
+miguel,MiguelAdmin,Administrador
+juan,JuanAdmin,Administrador

@@ -15,10 +15,12 @@ public class Usuario {
     public static final String BLANCO = "\u001B[37m";
     private static final String FILE = "Usuarios.txt";
 
-    private static ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
+    private static ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();//se crea el arrayList
     private String Nombre;
     private String contrasena;
     private String tipo;
+
+    //Metodo de usuario
 
     public Usuario(String nombre, String contrasena, String tipo) {
         this.tipo = tipo;
@@ -26,25 +28,26 @@ public class Usuario {
         this.Nombre = nombre;
     }
 
-
+    // Getters
     public String getNombre() {
         return Nombre;
-    }
-
-    public void setNombre(String nombre) {
-        Nombre = nombre;
     }
 
     public String getContrasena() {
         return contrasena;
     }
 
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
-    }
-
     public String isTipo() {
         return tipo;
+    }
+
+    //Setters
+    public void setNombre(String nombre) {
+        Nombre = nombre;
+    }
+
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 
     public void setTipo(String tipo) {

@@ -17,7 +17,6 @@ void main() {
     boolean correcto; // Inicializar correcto
     boolean acceso = false; // Inicializar acceso
 
-    Usuario.cargarUsuarios(); //llama al metodo cargar usuarios
 
     do { //Bucle para el modulo de login
         do { //Bucle para ingresar si se quiere Iniciar sesion o crear una cuenta
@@ -70,9 +69,10 @@ void main() {
         if (opcInicio == 1) { // Si la opcion es 1 crea una cuenta
             Usuario.crearCuenta(nombre, contrasena, tipo); //Insertar los valores de nombre contraseña, tipo al modulo crear cuenta
         } else { // Si la opcion es 2 inicia sesion
+            Usuario.cargarUsuarios(); //llama al metodo cargar usuarios
             boolean inicioSesion = Usuario.iniciarSesion(nombre, contrasena, tipo); //Insertar los valores de nombre contraseña, tipo al modulo iniciar sesion
-            if (inicioSesion) {
-                System.out.printf("hola %s, has accedido con exito\n",nombre);
+            if (inicioSesion) { // verifica si el metodo iniciar sesion es verdadero
+                System.out.printf("hola %s, has accedido como %s\n",nombre, tipo);
                 acceso = true;
             }
         }
