@@ -48,7 +48,7 @@ void main() {
             opcionIngresada = IO.readln();
             //try catch para validar si la opcion ingresada si sea un numero
             try {
-                opcTipo = Integer.parseInt(opcionIngresada);
+                opcTipo = Integer.parseInt(opcionIngresada); // convirtiendo a numero opcionIngresada y asignandole a opcTipo
                 if (opcTipo == 1) {
                     tipo = "Usuario";
                     correcto = true;
