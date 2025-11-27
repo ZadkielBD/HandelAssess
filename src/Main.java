@@ -17,7 +17,6 @@ void main() {
     boolean correcto; // Inicializar correcto
     boolean acceso = false; // Inicializar acceso
 
-
     do { //Bucle para el modulo de login
         do { //Bucle para ingresar si se quiere Iniciar sesion o crear una cuenta
             IO.println(MORADO+"Iniciar sesión o crear cuenta"+RESET);
@@ -55,12 +54,13 @@ void main() {
                     tipo = "Administrador";
                     correcto = true;
                 } else {
+                    tipo = "Error";
                     IO.println(ROJO + "Opcion Invalida" + RESET);
+                    correcto=false;
                 }
                 if (nombre.isEmpty() || contrasena.isEmpty() || tipo.isEmpty()) { //validando si algun valor esta vacio
                     correcto = false;
                     IO.println(ROJO + "Ningun campo puede ser nulo" + RESET);
-                    IO.println("");
                 }
             } catch (NumberFormatException e) { //atrapa la excepcion
                 IO.println(ROJO + "Debes de ingresar un numero" + RESET);

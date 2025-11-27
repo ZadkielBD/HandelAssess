@@ -3,3 +3,4 @@ cesar,2009,Usuario
 leonardo,AdminLeonard,Administrador
 miguel,MiguelAdmin,Administrador
 juan,JuanAdmin,Administrador
+zadkiel,2009,Usuario
