@@ -113,7 +113,7 @@ void main() {
             Usuario.cargarUsuarios(); //llama al metodo cargar usuarios
             boolean inicioSesion = Usuario.iniciarSesion(nombre, contraseña, tipo); //Insertar los valores de nombre contraseña, tipo al modulo iniciar sesion
             if (inicioSesion) { // verifica si el metodo iniciar sesion es verdadero
-                System.out.printf(AZUL_FONDO+" Hola %s, has accedido como %s "+RESET+RESET,nombre, tipo);
+                System.out.printf(AZUL_FONDO+" Hola %s, has accedido como %s "+RESET+RESET,nombre, tipo); //imprimr que has accedido al sistema
                 acceso = true;
             }
         }
