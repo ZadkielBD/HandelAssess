@@ -1,7 +1,0 @@
-|                  =====LISTA USUARIOS=====                  |
-|NOMBRE               |CONTRASEÑA           |TIPO            |
-|Usuario              |User                 |Usuario         |
-|Zadkiel              |Zadkiel#2009         |Administrador   |
-|Leonardo             |LeonardoAdmin        |Administrador   |
-|Juan                 |JuanAdmin            |Administrador   |
-|Miguel               |MiguelAdmin          |Administrador   |

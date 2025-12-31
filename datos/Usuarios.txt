@@ -1,0 +1,10 @@
+ ____________________________________________________________
+|                       LISTA USUARIOS                       | 
+|____________________________________________________________|
+|       NOMBRES       |     CONTRASEÑAS     |      TIPO      | 
+|____________________________________________________________|
+|Usuario              |User                 |Usuario         |
+|Zadkiel              |ZadkielAdmin         |Administrador   |
+|Leonardo             |LeonardoAdmin        |Administrador   |
+|Juan                 |JuanAdmin            |Administrador   |
+|Miguel               |MiguelAdmin          |Administrador   |
