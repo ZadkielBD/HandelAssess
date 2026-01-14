@@ -69,7 +69,8 @@ public enum Color {
     BLUE_BACKGROUND_BRIGHT("\033[0;104m"),      // BLUE
     MAGENTA_BACKGROUND_BRIGHT("\033[0;105m"),   // MAGENTA
     CYAN_BACKGROUND_BRIGHT("\033[0;106m"),      // CYAN
-    WHITE_BACKGROUND_BRIGHT("\033[0;107m");     // WHITE
+    WHITE_BACKGROUND_BRIGHT("\033[0;107m"),     // WHITE
+    RESULT("\033[0;36;100m");
 
     private final String code;
 

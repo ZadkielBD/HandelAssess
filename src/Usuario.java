@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class Usuario {
     private static final String FILE = "datos/Usuarios.txt";
-    private static final ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();//se crea el arrayList
+    private static final ArrayList<Usuario> listaUsuarios = new ArrayList<>();
     private static final File file = new File(FILE);
 
     private String Nombre;
@@ -40,7 +40,7 @@ public class Usuario {
         this.tipo = tipo;
     }
 
-    public static void verificarArchivo() {
+    public static void VerificarArchivo() {
         if (!file.exists()) {
             IO.println(Color.RED_BOLD+"Archivo no encontado"+Color.RESET);
             try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE))) {
@@ -51,30 +51,32 @@ public class Usuario {
                 bw.write("|____________________________________________________________|\n");
                 IO.println(Color.GREEN_BOLD+"Se ha creado el archivo: " + file.getName()+Color.RESET);
             } catch (IOException e) {
-                System.out.println("Ocurrio un error");
+                System.out.println("No se pudo crear");
             }
         }
     }
 
-    public static void cargarUsuarios() {
+    public static void CargarUsuarios() {
         listaUsuarios.clear();
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(FILE));
+        try(BufferedReader br = new BufferedReader(new FileReader(FILE))) {
             String linea;
             while ((linea = br.readLine()) != null) {
                 linea = linea.replaceFirst("^\\|", "").replaceFirst("\\|$", "");
                 String[] partes = linea.split("\\|");
                 if (partes.length == 3) {
-                    listaUsuarios.add(new Usuario(partes[0].trim(),partes[1].trim(),partes[2].trim()));
-                     // parte[0] = nombre, parte[1] = contraseña, parte[2] = tipo
+                    listaUsuarios.add(new Usuario(
+                            partes[0].trim()
+                            ,partes[1].trim()
+                            ,partes[2].trim()
+                    )); // parte[0] = nombre, parte[1] = contraseña, parte[2] = tipo
                 }
             }
         } catch (IOException e) {
-            IO.println(Color.RED+"Error al leer usuarios: "+e.getMessage()+Color.RESET);
+            IO.println(Color.RED_BOLD+"Error al leer usuarios: "+e.getMessage()+Color.RESET);
         }
     }
 
-    static void crearCuenta(String nombre, String contraseña, String tipo) {
+    public static void CrearCuenta(String nombre, String contraseña, String tipo) {
         try(BufferedWriter bw = new BufferedWriter(new FileWriter(FILE, true))) {
             bw.write(String.format( "|%-20s |%-20s |%-15s |%n",nombre,contraseña,tipo));
             IO.println(Color.BLUE_BOLD+"****Cuenta creada correctamente****"+Color.RESET);
@@ -83,7 +85,8 @@ public class Usuario {
         }
     }
 
-    static boolean iniciarSesion(String nombre, String contraseña, String tipo) {
+    public static boolean IniciarSesion(String nombre, String contraseña, String tipo) {
+        CargarUsuarios();
         for (Usuario usuario: listaUsuarios) {
             if (usuario.getNombre().equalsIgnoreCase(nombre)&&
                     usuario.getContraseña().equals(contraseña)&&
@@ -92,12 +95,12 @@ public class Usuario {
                 return true;
             }
         }
-        IO.println(Color.RED+"Usuario no encontrado, vuelve a intentarlo"+Color.RESET);
+        IO.println(Color.RED_BOLD+"Usuario no encontrado, vuelve a intentarlo"+Color.RESET);
         return false;
     }
 
-    static boolean verificarExistente(String nombre, String contraseña, String tipo) {
-        Usuario.cargarUsuarios();
+    public static boolean VerificarExistente(String nombre, String contraseña, String tipo) {
+        CargarUsuarios();
         for (Usuario usuario: listaUsuarios) {
             if (usuario.getNombre().equalsIgnoreCase(nombre)&&
                     usuario.getContraseña().equals(contraseña)&&
@@ -107,5 +110,4 @@ public class Usuario {
         }
         return false;
     }
-
 }
