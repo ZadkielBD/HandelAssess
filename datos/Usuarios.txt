@@ -8,3 +8,4 @@
 |Leonardo             |LeonardoAdmin        |Administrador   |
 |Juan                 |JuanAdmin            |Administrador   |
 |Miguel               |MiguelAdmin          |Administrador   |
+|Cliente              |Cliente@123          |Usuario         |

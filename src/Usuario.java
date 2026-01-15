@@ -76,7 +76,7 @@ public class Usuario {
         }
     }
 
-    public static void CrearCuenta(String nombre, String contraseña, String tipo) {
+    public static void crearCuenta(String nombre, String contraseña, String tipo) {
         try(BufferedWriter bw = new BufferedWriter(new FileWriter(FILE, true))) {
             bw.write(String.format( "|%-20s |%-20s |%-15s |%n",nombre,contraseña,tipo));
             IO.println(Color.BLUE_BOLD+"****Cuenta creada correctamente****"+Color.RESET);
@@ -85,12 +85,12 @@ public class Usuario {
         }
     }
 
-    public static boolean IniciarSesion(String nombre, String contraseña, String tipo) {
+    public static boolean iniciarSesion(String nombre, String contraseña, String tipo) {
         CargarUsuarios();
-        for (Usuario usuario: listaUsuarios) {
-            if (usuario.getNombre().equalsIgnoreCase(nombre)&&
-                    usuario.getContraseña().equals(contraseña)&&
-                    usuario.getTipo().equals(tipo)){
+        for (Usuario u : listaUsuarios) {
+            if (u.getNombre().equalsIgnoreCase(nombre)&&
+                    u.getContraseña().equals(contraseña)&&
+                    u.getTipo().equals(tipo)){
                 IO.println(Color.BLUE_BOLD+"****Iniciando sesion****"+Color.RESET);
                 return true;
             }
@@ -99,12 +99,12 @@ public class Usuario {
         return false;
     }
 
-    public static boolean VerificarExistente(String nombre, String contraseña, String tipo) {
+    public static boolean verificarExistente(String nombre, String contraseña, String tipo) {
         CargarUsuarios();
-        for (Usuario usuario: listaUsuarios) {
-            if (usuario.getNombre().equalsIgnoreCase(nombre)&&
-                    usuario.getContraseña().equals(contraseña)&&
-                    usuario.getTipo().equals(tipo)){
+        for (Usuario u : listaUsuarios) {
+            if (u.getNombre().equalsIgnoreCase(nombre)&&
+                    u.getContraseña().equals(contraseña)&&
+                    u.getTipo().equals(tipo)){
                 return true;
             }
         }
