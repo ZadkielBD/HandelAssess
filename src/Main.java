@@ -1,5 +1,6 @@
 private static final String contraAdmin = "HANDEL_ADMIN123";
-
+private static final String USUARIO = "Usuario";
+private static final String ADMINISTRADOR = "Administrador";
 void main() {
     // #####LOGIN#####
     String tipo;
@@ -36,12 +37,12 @@ void main() {
             opcTipo = convertirInt("Debes de ingresar un numero");
             switch (opcTipo) {
                     case 1:
-                        tipo = TipoUsuario.USUARIO.toString();
+                        tipo = USUARIO;
                         break;
                     case 2:
                         String contraAdminIngresado = IO.readln("Ingresa la contraseña del administrador: ");
                         if (contraAdminIngresado.equals(contraAdmin)) {
-                            tipo = TipoUsuario.ADMINISTRADOR.toString();
+                            tipo = ADMINISTRADOR;
                             break;
                         } else {
                             IO.println("Contraseña del administrador incorrecto");
@@ -70,12 +71,17 @@ void main() {
     }
     while (true) { //bucle para la tasacion
         int opcInicio;
+        // ORO
+        double PrecioOroGrUSD=1.0;
         while (true) {
+            int opcMenu;
+            boolean ModoAdmin = false;
             IO.println(Color.MAGENTA_BOLD+"=====Menu de Tasacion====="+Color.RESET);
-            if (tipo.equals(TipoUsuario.ADMINISTRADOR.toString())) {
-                IO.println(Color.GREEN_BOLD+"0)Modo Administrador"+Color.RESET);
+            if (tipo.equals(ADMINISTRADOR)) {
+                opcMenu= convertirInt(Color.GREEN_BOLD+"0)Modo Administrador"+Color.RESET);
+                ModoAdmin = true;
             }
-            if (tipo.equals(TipoUsuario.ADMINISTRADOR.toString())) {
+            if (ModoAdmin) {
                 IO.println(Color.BLUE_BOLD+"1)Actualizar valor de las divisas\n2)Actualizar valor de metales preciosos\n3)Añadir metal precioso\n4)Salir de admin"+Color.RESET);
             } else {
                 IO.println(Color.GREEN_BOLD+"1)Calcular Oro\n2)Calcular Plata"+Color.RESET);
@@ -90,7 +96,6 @@ void main() {
                     default:
                         continue;
                 }
-
             }
             break;
         }
