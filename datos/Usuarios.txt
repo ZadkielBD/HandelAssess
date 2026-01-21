@@ -4,8 +4,9 @@
 |       NOMBRES       |     CONTRASEÑAS     |      TIPO      | 
 |____________________________________________________________|
 |Usuario              |User                 |Usuario         |
-|Zadkiel              |ZadkielAdmin         |Administrador   |
-|Leonardo             |LeonardoAdmin        |Administrador   |
-|Juan                 |JuanAdmin            |Administrador   |
-|Miguel               |MiguelAdmin          |Administrador   |
+|Zadkiel              |Zadkiel123           |Administrador   |
+|Leonardo             |Leonardo123          |Administrador   |
+|Juan                 |Juan123              |Administrador   |
+|Miguel               |Miguel123            |Administrador   |
 |Cliente              |Cliente@123          |Usuario         |
+|Zadkiel              |Zadkiel123           |Usuario         |
