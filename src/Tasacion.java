@@ -18,6 +18,18 @@ public class Tasacion {
             this.simbolo = simbolo;
             this.tipoCambio = tipoCambio;
         }
+
+        public String getNombre() {
+            return nombre;
+        }
+
+        public String getSimbolo() {
+            return simbolo;
+        }
+
+        public double getTipoCambio() {
+            return tipoCambio;
+        }
     }
 
     public enum UnidadPeso {
@@ -39,9 +51,34 @@ public class Tasacion {
             return factorOnzasTroy;
         }
 
-        public double convertir_Unidad(double valor, UnidadPeso unidadQuerida) {
-            return  (valor * this.factorOnzasTroy)/ unidadQuerida.getUnidad();
+        public double convertir_Unidad(double valor) {
+            return  (valor * this.factorOnzasTroy)/ ONZA_TROY.getUnidad();
         }
     }
+    public enum LeyPlata {
 
+        LEY_999(0.999, "Plata fina (Inversión)"),
+        LEY_950(0.950, "Plata mexicana"),
+        LEY_925(0.925, "Plata Sterling"),
+        LEY_900(0.900, "Monedas antiguas"),
+        LEY_835(0.835, "Plata europea"),
+        LEY_800(0.800, "Cubiertos y monedas"),
+        LEY_750(0.750, "Plata antigua"),
+        LEY_720(0.720, "Uso artesanal");
+
+        private final double factor;
+        private final String descripcion;
+
+        LeyPlata(double factor, String descripcion) {
+            this.factor = factor;
+            this.descripcion = descripcion;
+        }
+
+        public double getUnidad() {
+            return factor;
+        }
+        public String getDescripcion() {
+            return descripcion;
+        }
+    }
 }

@@ -9,3 +9,4 @@
 |Juan                 |Juan123              |Administrador   |
 |Miguel               |Miguel123            |Administrador   |
 |Cliente              |Cliente@123          |Usuario         |
+|Zadkiel              |Zadkiel123           |Usuario         |
