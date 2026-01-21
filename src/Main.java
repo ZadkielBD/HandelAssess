@@ -153,7 +153,7 @@ public void pedirDatosOro() {
     while (true) {
         peso = convertirDouble("Cuanto pesa tu pieza de oro (gramos): ","Debes ingresar un numero");
         pureza = convertirInt("Cuantos kilates tiene tu pieza de oro (desde 8k hasta 24k): ","Ingresa un numero");
-        if ((pureza > 8 && pureza <=24) && peso > 0) {
+        if ((pureza > 8 || pureza <=24) && peso > 0) {
             purezaTotal = (double) pureza/24;
             break;
         } else {
