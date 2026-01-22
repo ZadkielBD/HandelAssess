@@ -72,7 +72,7 @@ void main() {
             }
         } else { // Si la opcion es 2 inicia sesion
             if (Usuario.iniciarSesion(nombre, contraseña, tipo)) { // Insertar y verificar si el metodo iniciar sesion es verdadero
-                System.out.printf(Color.RESULT+"Hola %s, has accedido como un %s \n"+Color.RESET,nombre, tipo); //imprimr que has accedido al sistema
+                System.out.printf(Color.CYAN+"Hola %s, has accedido como un %s \n"+Color.RESET,nombre, tipo); //imprimr que has accedido al sistema
                 break;
             }
         }
@@ -174,6 +174,10 @@ public void conversionPeso() {
 
             peso = convertirDouble("Cuenta pesa tu pieza: ","Debes ingresar un numero");
 
+            if (peso <= 0) {
+                throw new IllegalArgumentException("El peso no puede ser negativo");
+            }
+
             peso = peso / unidadSeleccionada.getUnidad() ;
             break;
         } catch (IllegalArgumentException e) {
@@ -227,12 +231,13 @@ public void pedirDatosOro() {
     }
     double resultado = peso*purezaTotal* precioOroOzTUSD;
     resultado = conversionDivisa(resultado);
-    System.out.printf(Color.RESULT+"El valor estimado de tu pieza de oro es de : %s%,.2f (%s)\n"+Color.RESET, simbolo, resultado, nombreDivisa);
+    System.out.printf(Color.CYAN+"El valor estimado de tu pieza de oro es de : %s%,.2f (%s)\n"+Color.RESET, simbolo, resultado, nombreDivisa);
 }
 
 public void pedirDatosPlata() {
     double precioPlataOzTUSD = 94.51;
     double purezaTotal;
+    int opcPureza;
     conversionPeso();
     while (true) {
         try {
@@ -243,7 +248,8 @@ public void pedirDatosPlata() {
                 i++;
                 System.out.printf(Color.GREEN_BOLD+"%d)%s - %s\n"+Color.RESET, i, ley.name(), ley.getDescripcion());
             }
-            int opcPureza = convertirInt("","Debes ingresar un numero");
+
+            opcPureza = convertirInt("","Debes ingresar un numero");
 
             if (opcPureza < 1 || opcPureza > leyes.length) {
                 throw new IllegalArgumentException("Opción inválida");
@@ -259,5 +265,5 @@ public void pedirDatosPlata() {
     }
     double resultado = peso*purezaTotal* precioPlataOzTUSD;
     resultado = conversionDivisa(resultado);
-    System.out.printf(Color.RESULT+"El valor estimado de tu pieza de plata es de: %s%,.2f (%s)\n"+Color.RESET,simbolo, resultado,  nombreDivisa);
+    System.out.printf(Color.CYAN+"El valor estimado de tu pieza de plata es de: %s%,.2f (%s)\n"+Color.RESET,simbolo, resultado,  nombreDivisa);
 }
