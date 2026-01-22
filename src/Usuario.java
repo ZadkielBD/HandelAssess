@@ -105,6 +105,7 @@ public class Usuario {
             if (u.getNombre().equalsIgnoreCase(nombre)&&
                     u.getContraseña().equals(contraseña)&&
                     u.getTipo().equals(tipo)){
+                IO.println(Color.RED_BOLD+"Este usuario ya existe"+Color.RESET);
                 return true;
             }
         }

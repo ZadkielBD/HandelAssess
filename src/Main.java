@@ -43,14 +43,20 @@ void main() {
                         tipo = USUARIO;
                         break;
                     case 2:
-                        String contraAdminIngresado = IO.readln("Ingresa la contraseña del administrador: ");
-                        if (contraAdminIngresado.equals(contraAdmin)) {
-                            tipo = ADMINISTRADOR;
-                            break;
+                        if (opcInicio == 1) {
+                            String contraAdminIngresado = IO.readln("Ingresa la contraseña del administrador: ");
+                            if (contraAdminIngresado.equals(contraAdmin)) {
+                                tipo = ADMINISTRADOR;
+                                break;
+                            } else {
+                                IO.println("Contraseña del administrador incorrecto");
+                                continue;
+                            }
                         } else {
-                            IO.println("Contraseña del administrador incorrecto");
-                            continue;
+                            tipo = USUARIO;
+                            break;
                         }
+
                     default:
                         IO.println(Color.RED_BOLD+"Ingresa 1 o 2"+Color.RESET);
                         continue;
@@ -58,7 +64,7 @@ void main() {
                 break;
         }
         do {
-            nombre = IO.readln(Color.WHITE_BOLD_BRIGHT+"Usuario(con un tamaño menor a 20 caracteres): "+ Color.RESET).trim();
+            nombre = IO.readln("Usuario(con un tamaño menor a 20 caracteres): ").trim();
             contraseña = IO.readln("Contraseña(con un tamaño menor a 20 caracteres): ").trim();
         } while (!verificarTexto(nombre, contraseña, 20));
         if (opcInicio == 1) { // Si la opcion es 1 crea una cuenta
