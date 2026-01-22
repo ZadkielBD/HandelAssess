@@ -58,7 +58,7 @@ void main() {
                 break;
         }
         do {
-            nombre = IO.readln(Color.WHITE_BOLD_BRIGHT+"Usuario(con un tamaño menor a 20 caracteres): "+ Color.RESET).trim();
+            nombre = IO.readln("Usuario(con un tamaño menor a 20 caracteres): ").trim();
             contraseña = IO.readln("Contraseña(con un tamaño menor a 20 caracteres): ").trim();
         } while (!verificarTexto(nombre, contraseña, 20));
         if (opcInicio == 1) { // Si la opcion es 1 crea una cuenta
