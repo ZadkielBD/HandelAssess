@@ -52,11 +52,10 @@ void main() {
                                 IO.println("Contraseña del administrador incorrecto");
                                 continue;
                             }
-                        } else {
-                            tipo = USUARIO;
+                        } else if (opcInicio == 2) {
+                            tipo = ADMINISTRADOR;
                             break;
                         }
-
                     default:
                         IO.println(Color.RED_BOLD+"Ingresa 1 o 2"+Color.RESET);
                         continue;
