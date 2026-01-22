@@ -35,7 +35,7 @@ public class Tasacion {
     public enum UnidadPeso {
         ONZA_TROY("t oz",1.0),
         ONZA("oz", 1.09715),
-        LIBRA("lb", 1.09715),
+        LIBRA("lb", 14.583),
         GRAMOS("g",31.1034768),
         KILOGRAMOS("kg", 0.0311);
 
@@ -51,8 +51,8 @@ public class Tasacion {
             return factorOnzasTroy;
         }
 
-        public double convertir_Unidad(double valor) {
-            return  (valor * this.factorOnzasTroy)/ ONZA_TROY.getUnidad();
+        public String getSimbolo() {
+            return simbolo;
         }
     }
     public enum LeyPlata {

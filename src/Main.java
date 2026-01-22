@@ -2,8 +2,8 @@ private static final String contraAdmin = "HANDEL_ADMIN123";
 private static final String USUARIO = "Usuario";
 private static final String ADMINISTRADOR = "Administrador";
 private static double peso;
-private static int pureza;
 private static String simbolo;
+private static String nombreDivisa;
 void main() {
     // #####LOGIN#####
     String tipo;
@@ -58,7 +58,7 @@ void main() {
                 break;
         }
         do {
-            nombre = IO.readln("Usuario(con un tamaño menor a 20 caracteres): ").trim();
+            nombre = IO.readln(Color.WHITE_BOLD_BRIGHT+"Usuario(con un tamaño menor a 20 caracteres): "+ Color.RESET).trim();
             contraseña = IO.readln("Contraseña(con un tamaño menor a 20 caracteres): ").trim();
         } while (!verificarTexto(nombre, contraseña, 20));
         if (opcInicio == 1) { // Si la opcion es 1 crea una cuenta
@@ -147,28 +147,88 @@ public boolean verificarTexto(String texto, String texto2 , int TamañoMaximo) {
     }
 }
 
-public void pedirDatosOro() {
-    double precioOroOztUSD = 149.84;
-    double purezaTotal;
+
+public void conversionPeso() {
     while (true) {
-        peso = convertirDouble("Cuanto pesa tu pieza de oro (gramos): ","Debes ingresar un numero");
-        pureza = convertirInt("Cuantos kilates tiene tu pieza de oro (desde 8k hasta 24k): ","Ingresa un numero");
-        if ((pureza > 8 || pureza <=24) || peso > 0) {
-            purezaTotal = (double) pureza/24;
+        try {
+            int opcPeso;
+            Tasacion.UnidadPeso[] unidades = Tasacion.UnidadPeso.values();
+            IO.println(Color.MAGENTA_BOLD + "=====Menu Divisas=====" + Color.RESET);
+            int i = 0;
+            for (Tasacion.UnidadPeso unidad : Tasacion.UnidadPeso.values()) {
+                i++;
+                System.out.printf(Color.GREEN_BOLD + "%d)%s - %s\n" + Color.RESET, i, unidad.name(), unidad.getSimbolo());
+            }
+            opcPeso = convertirInt("", "Debes ingresar un numero");
+
+            if (opcPeso < 1 || opcPeso > unidades.length) {
+                throw new IllegalArgumentException("Opción inválida");
+            }
+
+            Tasacion.UnidadPeso unidadSeleccionada = unidades[opcPeso - 1];
+
+            peso = convertirDouble("Cuenta pesa tu pieza: ","Debes ingresar un numero");
+
+            peso = peso / unidadSeleccionada.getUnidad() ;
             break;
-        } else {
-            IO.println("No puede ser menor a 0 o mayor a 24");
+        } catch (IllegalArgumentException e) {
+            IO.println(Color.RED_BOLD + e.getMessage() + Color.RESET);
         }
     }
-    double resultado = peso*purezaTotal* precioOroOztUSD;
+}
+
+public double conversionDivisa(double resultado) {
+    int opcDivisa;
+    double resultadoFinal;
+    while (true) {
+        try {
+            Tasacion.Divisa[] divisas = Tasacion.Divisa.values();
+            IO.println(Color.MAGENTA_BOLD + "=====Menu Divisas=====" + Color.RESET);
+            int i = 0;
+            for (Tasacion.Divisa divisa : Tasacion.Divisa.values()) {
+                i++;
+                System.out.printf(Color.GREEN_BOLD + "%d)%s\n" + Color.RESET, i, divisa.name());
+            }
+            opcDivisa = convertirInt("", "Debes ingresar un numero");
+
+            if (opcDivisa < 1 || opcDivisa > divisas.length) {
+                throw new IllegalArgumentException("Opción inválida");
+            }
+
+            Tasacion.Divisa divisaSeleccionada = divisas[opcDivisa - 1];
+            resultadoFinal = divisaSeleccionada.getTipoCambio() * resultado;
+            simbolo = divisaSeleccionada.getSimbolo();
+            nombreDivisa = divisaSeleccionada.getNombre();
+            break;
+        } catch (IllegalArgumentException e) {
+            IO.println(Color.RED_BOLD + e.getMessage() + Color.RESET);
+        }
+    }
+    return resultadoFinal;
+}
+
+public void pedirDatosOro() {
+    double precioOroOzTUSD = 4782.66;
+    double purezaTotal;
+    conversionPeso();
+    while (true) {
+        int pureza = convertirInt("Cuantos kilates tiene tu pieza de oro (desde 8k hasta 24k): ", "Ingresa un numero");
+        if ((pureza >= 8 && pureza <=24) && peso > 0) {
+            purezaTotal = (double) pureza /24;
+            break;
+        } else {
+            IO.println(Color.RED_BOLD + "No puede ser menor a 0 o mayor a 24" + Color.RESET);
+        }
+    }
+    double resultado = peso*purezaTotal* precioOroOzTUSD;
     resultado = conversionDivisa(resultado);
-    System.out.printf(Color.RESULT+"El precio de tu pieza de oro es de : %s%,.2f\n"+Color.RESET, simbolo, resultado);
+    System.out.printf(Color.RESULT+"El valor estimado de tu pieza de oro es de : %s%,.2f (%s)\n"+Color.RESET, simbolo, resultado, nombreDivisa);
 }
 
 public void pedirDatosPlata() {
-    double precioPlataUSD = 3;
-    double purezaTotal = 0;
-    peso = convertirDouble("Cuenta pesa tu pieza de plata (gramos): ","Debes ingresar un numero");
+    double precioPlataOzTUSD = 94.51;
+    double purezaTotal;
+    conversionPeso();
     while (true) {
         try {
             Tasacion.LeyPlata[] leyes = Tasacion.LeyPlata.values();
@@ -192,36 +252,7 @@ public void pedirDatosPlata() {
             IO.println(Color.RED_BOLD+e.getMessage()+Color.RESET);
         }
     }
-    double resultado = peso*purezaTotal*precioPlataUSD;
+    double resultado = peso*purezaTotal* precioPlataOzTUSD;
     resultado = conversionDivisa(resultado);
-    System.out.printf(Color.RESULT+"El precio de tu pieza de plata es de: %s%,.2f\n"+Color.RESET,simbolo, resultado);
-}
-
-public double conversionDivisa(double resultado) {
-    int opcDivisa;
-    double resultadoFinal = 0;
-    while (true) {
-        try {
-            Tasacion.Divisa[] divisas = Tasacion.Divisa.values();
-            IO.println(Color.MAGENTA_BOLD + "=====Menu Divisas=====" + Color.RESET);
-            int i = 0;
-            for (Tasacion.Divisa divisa : Tasacion.Divisa.values()) {
-                i++;
-                System.out.printf(Color.GREEN_BOLD + "%d)%s\n" + Color.RESET, i, divisa.name());
-            }
-            opcDivisa = convertirInt("", "Debes ingresar un numero");
-
-            if (opcDivisa < 1 || opcDivisa > divisas.length) {
-                throw new IllegalArgumentException("Opción inválida");
-            }
-
-            Tasacion.Divisa divisaSeleccionada = divisas[opcDivisa - 1];
-            resultadoFinal = divisaSeleccionada.getTipoCambio() * resultado;
-            simbolo = divisaSeleccionada.getSimbolo();
-            break;
-        } catch (IllegalArgumentException e) {
-            IO.println(Color.RED_BOLD + e.getMessage() + Color.RESET);
-        }
-    }
-    return resultadoFinal;
+    System.out.printf(Color.RESULT+"El valor estimado de tu pieza de plata es de: %s%,.2f (%s)\n"+Color.RESET,simbolo, resultado,  nombreDivisa);
 }

@@ -10,3 +10,6 @@
 |Miguel               |Miguel123            |Administrador   |
 |Cliente              |Cliente@123          |Usuario         |
 |Zadkiel              |Zadkiel123           |Usuario         |
+|Leonardo             |Leonardo123          |Usuario         |
+|Miguel               |Miguel123            |Usuario         |
+|Juan                 |Juan123              |Usuario         |
