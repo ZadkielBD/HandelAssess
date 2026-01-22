@@ -40,7 +40,7 @@ public class Usuario {
         this.tipo = tipo;
     }
 
-    public static void VerificarArchivo() {
+    public static void verificarArchivo() {
         if (!file.exists()) {
             IO.println(Color.RED_BOLD+"Archivo no encontado"+Color.RESET);
             try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE))) {
@@ -56,7 +56,7 @@ public class Usuario {
         }
     }
 
-    public static void CargarUsuarios() {
+    public static void cargarUsuarios() {
         listaUsuarios.clear();
         try(BufferedReader br = new BufferedReader(new FileReader(FILE))) {
             String linea;
@@ -86,7 +86,7 @@ public class Usuario {
     }
 
     public static boolean iniciarSesion(String nombre, String contraseña, String tipo) {
-        CargarUsuarios();
+        cargarUsuarios();
         for (Usuario u : listaUsuarios) {
             if (u.getNombre().equalsIgnoreCase(nombre)&&
                     u.getContraseña().equals(contraseña)&&
@@ -100,7 +100,7 @@ public class Usuario {
     }
 
     public static boolean verificarExistente(String nombre, String contraseña, String tipo) {
-        CargarUsuarios();
+        cargarUsuarios();
         for (Usuario u : listaUsuarios) {
             if (u.getNombre().equalsIgnoreCase(nombre)&&
                     u.getContraseña().equals(contraseña)&&

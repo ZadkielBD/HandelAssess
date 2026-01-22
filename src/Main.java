@@ -12,7 +12,7 @@ void main() {
 
     // #####TASACION#####
 
-    Usuario.VerificarArchivo();
+    Usuario.verificarArchivo();
 
     while (true) { //Bucle para el modulo de login
         int opcInicio; //opcion para el inicio de sesion o crear cuenta
