@@ -34,9 +34,9 @@ public class Tasacion {
 
     public enum UnidadPeso {
         ONZA_TROY("t oz",1.0),
+        GRAMOS("g",31.1034768),
         ONZA("oz", 1.09715),
         LIBRA("lb", 14.583),
-        GRAMOS("g",31.1034768),
         KILOGRAMOS("kg", 0.0311);
 
         private final String simbolo;

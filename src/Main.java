@@ -4,6 +4,8 @@ private static final String ADMINISTRADOR = "Administrador";
 private static double peso;
 private static String simbolo;
 private static String nombreDivisa;
+double precioPlataOzTUSD = 103.19;
+double precioOroOzTUSD = 4782.66;
 void main() {
     // #####LOGIN#####
     String tipo;
@@ -19,8 +21,7 @@ void main() {
         int opcTipo; // opcion para el tipo de cuenta
         while (true){ //Bucle para ingresar si se quiere Iniciar sesion o crear una cuenta
             IO.println(Color.MAGENTA_BOLD+"=====Iniciar sesión o crear cuenta====="+Color.RESET);
-            IO.println(Color.GREEN_BOLD+"1)Crear cuenta\n2)Iniciar sesión"+Color.RESET);
-            opcInicio = convertirInt("","Debes ingresar un numero");
+            opcInicio = convertirInt(Color.GREEN_BOLD+"1)Crear cuenta\n2)Iniciar sesión\n"+Color.RESET,"Debes ingresar un numero");
             switch (opcInicio) {
                     case 1:
                         IO.println(Color.BLUE_BOLD+"=====Creando Cuenta====="+Color.RESET);
@@ -36,8 +37,7 @@ void main() {
         }
         while (true){ //Bucle para el ingreso de los datos
             IO.println(Color.MAGENTA_BOLD+"Tipos de cuentas:"+Color.RESET);
-            IO.println(Color.GREEN_BOLD+"1)Usuario\n2)Administrador"+Color.RESET);
-            opcTipo = convertirInt("","Debes de ingresar un numero");
+            opcTipo = convertirInt(Color.GREEN_BOLD+"1)Usuario\n2)Administrador\n"+Color.RESET,"Debes de ingresar un numero");
             switch (opcTipo) {
                     case 1:
                         tipo = USUARIO;
@@ -85,15 +85,49 @@ void main() {
 
             boolean ModoAdmin = false;
             IO.println(Color.MAGENTA_BOLD+"=====Menu de Tasacion====="+Color.RESET);
-//            if (tipo.equals(ADMINISTRADOR)) {
-//                opcMenu= convertirInt(Color.GREEN_BOLD+"0)Modo Administrador"+Color.RESET);
-//                ModoAdmin = true;
-//            }
+            if (tipo.equals(ADMINISTRADOR)) {
+                opcMenu= convertirInt(Color.GREEN_BOLD+"1)Modo Administrador\n2)Modo Usuario\n"+Color.RESET,"Ingresa un numero");
+                switch (opcMenu) {
+                    case 1:
+                        IO.println(Color.MAGENTA_BOLD + "=====Menu Administrador=====" + Color.RESET);
+                        ModoAdmin = true;
+                        break;
+                    case 2:
+                        IO.println(Color.MAGENTA_BOLD + "=====Menu Usuario=====" + Color.RESET);
+                        break;
+                    default:
+                        IO.println(Color.RED_BOLD+"Ingresa un numero"+Color.RESET);
+                        continue;
+                }
+            }
             if (ModoAdmin) {
-                IO.println(Color.BLUE_BOLD+"1)Actualizar valor de las divisas\n2)Actualizar valor de metales preciosos\n3)Añadir metal precioso\n4)Salir de admin"+Color.RESET);
+                int opc = convertirInt(Color.GREEN_BOLD+"1)Actualizar valor de los metales preciosos\n2)Salir de admin\n"+Color.RESET, "Ingresa un numero");
+                switch (opc) {
+                    case 1:
+                        int opcMetal = convertirInt(Color.GREEN_BOLD+"1)Oro\n2)Plata\n"+Color.RESET, "Ingresa un numero");
+                        switch (opcMetal) {
+                            case 1:
+                                precioOroOzTUSD = convertirDouble("Ingresa el nuevo valor del oro puro (USD): ", "debes ingresar un numero");
+                                IO.println(Color.BLUE_BOLD+"El precio se ha cambiado a " + precioOroOzTUSD+Color.RESET);
+                                break;
+                            case 2:
+                                precioPlataOzTUSD = convertirDouble("Ingresa el nuevo valor de la plata pura (USD): ", "debes ingresar un numero");
+                                IO.println(Color.BLUE_BOLD+"El precio se ha cambiado a " + precioPlataOzTUSD+Color.RESET);
+                                break;
+                            default:
+                                IO.println(Color.RED_BOLD+"Ingresa un numero"+Color.RESET);
+                                continue;
+                        }
+                        break;
+                    case 2:
+                        IO.println(Color.BLUE_BOLD+ "Saliendo del menu"+ Color.RESET);
+                        break;
+                    default:
+                        IO.println(Color.RED_BOLD+"Ingresa un numero"+ Color.RESET);
+                        continue;
+                }
             } else {
-                IO.println(Color.GREEN_BOLD+"1)Calcular Oro\n2)Calcular Plata\n3)Salir"+Color.RESET);
-                opcInicio = convertirInt("","Debes ingresar una opcion valida");
+                opcInicio = convertirInt(Color.GREEN_BOLD+"1)Calcular Oro\n2)Calcular Plata\n3)Salir\n"+Color.RESET,"Debes ingresar una opcion valida");
                 switch (opcInicio) {
                     case 1:
                         IO.println(Color.BLUE_BOLD+"=====Calcular Oro====="+Color.RESET);
@@ -217,7 +251,6 @@ public double conversionDivisa(double resultado) {
 }
 
 public void pedirDatosOro() {
-    double precioOroOzTUSD = 4782.66;
     double purezaTotal;
     conversionPeso();
     while (true) {
@@ -226,7 +259,7 @@ public void pedirDatosOro() {
             purezaTotal = (double) pureza /24;
             break;
         } else {
-            IO.println(Color.RED_BOLD + "No puede ser menor a 0 o mayor a 24" + Color.RESET);
+            IO.println(Color.RED_BOLD + "No puede ser menor a 8 o mayor a 24" + Color.RESET);
         }
     }
     double resultado = peso*purezaTotal* precioOroOzTUSD;
@@ -235,7 +268,6 @@ public void pedirDatosOro() {
 }
 
 public void pedirDatosPlata() {
-    double precioPlataOzTUSD = 94.51;
     double purezaTotal;
     int opcPureza;
     conversionPeso();
